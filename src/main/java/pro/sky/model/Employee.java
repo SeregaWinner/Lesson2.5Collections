@@ -3,8 +3,8 @@ package pro.sky.model;
 import java.util.Objects;
 
 public class Employee {
-    private final String firstName;
-    private final String lastName;
+    private String firstName;
+    private String lastName;
 
 
     public Employee(String firstName, String lastName) {
@@ -13,6 +13,12 @@ public class Employee {
 
     }
 
+    public Employee() {
+    }
+
+    public String getFullName() {
+        return firstName + " " + lastName;
+    }
 
     public String getFirstName() {
         return firstName;
@@ -22,11 +28,12 @@ public class Employee {
         return lastName;
     }
 
-    @Override
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
 
-    public String toString() {
-        return "{" + "\"firstName\" : \"" + firstName + "\", \"" + "lastName\" : \"" + lastName + "\"" + "}" + "\n";
-
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 
     @Override

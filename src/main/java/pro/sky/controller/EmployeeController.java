@@ -4,10 +4,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import pro.sky.exception.EmployeeAlreadyAddedException;
-import pro.sky.exception.EmployeeNotFoundException;
-import pro.sky.exception.EmployeeStorageIsFullException;
+import pro.sky.model.Employee;
 import pro.sky.service.EmployeeService;
+
+import java.util.Collection;
 
 @RestController
 @RequestMapping("/employee")
@@ -17,50 +17,23 @@ public class EmployeeController {
     public EmployeeController(EmployeeService employeeService) {
         this.employeeService = employeeService;
     }
-    @GetMapping()
-    public String welcome(){
-        return "Welcome";
-    }
 
     @GetMapping("/add")
-    public String add (@RequestParam(value = "firstName", required = false)String firstName,
-                       @RequestParam(value = "lastName", required = false)String lastName){
-        if (firstName == null || lastName == null || firstName.isEmpty() || lastName.isEmpty()){
-            return "неверные параметры";
-        }
-        try {
+    public Employee add (@RequestParam(value = "firstName", required = false)String firstName,
+                         @RequestParam(value = "lastName", required = false)String lastName){
         return employeeService.addEmployee(firstName,lastName);
-        }
-        catch (EmployeeAlreadyAddedException | EmployeeStorageIsFullException e){
-            return  e.getMessage();
-        }
     }
     @GetMapping("/find")
-    public String find (@RequestParam(value = "firstName", required = false)String firstName,
+    public Employee find (@RequestParam(value = "firstName", required = false)String firstName,
                        @RequestParam(value = "lastName", required = false)String lastName){
-        if (firstName == null || lastName == null || firstName.isEmpty() || lastName.isEmpty()){
-            return "неверные параметры";
-        }
-        try {
-            return employeeService.findEmployee(firstName, lastName);
-        } catch (EmployeeNotFoundException e){
-            return e.getMessage();
-        }
+        return employeeService.findEmployee(firstName,lastName);
     } @GetMapping("/remove")
-    public String remove (@RequestParam(value = "firstName", required = false)String firstName,
+    public Employee remove (@RequestParam(value = "firstName", required = false)String firstName,
                        @RequestParam(value = "lastName", required = false)String lastName){
-        if (firstName == null || lastName == null || firstName.isEmpty() || lastName.isEmpty()){
-            return "неверные параметры";
-        }
-        try {
-            return employeeService.deleteEmployee(firstName, lastName);
-        } catch (EmployeeNotFoundException e){
-            return e.getMessage();
-
-        }
+        return employeeService.removeEmployee(firstName,lastName);
     }
-    @GetMapping("/print")
-    public String print (){
+    @GetMapping()
+    public Collection<Employee> printAll (){
         return employeeService.printAllEmployee();
     }
 }
