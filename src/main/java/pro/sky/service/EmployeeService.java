@@ -14,7 +14,7 @@ public class EmployeeService {
     private Map<String, Employee> employees;
 
     public EmployeeService(Map<String, Employee> employees) {
-        this.employees = employees;
+        this.employees = employee;/*Косяк здесь!*/
 
     }
 
