@@ -16,7 +16,7 @@ public class Employee {
     public Employee() {
     }
 
-    public String getFullName() {
+    public String combineFullName() {
         return firstName + " " + lastName;
     }
 

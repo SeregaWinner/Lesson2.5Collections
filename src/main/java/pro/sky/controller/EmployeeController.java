@@ -37,7 +37,7 @@ public class EmployeeController {
     }
 
     @GetMapping()
-    public Collection<Employee> printAll() {
+    public Collection<Employee> printAll()   {
         return employeeService.printAllEmployee();
     }
 }
