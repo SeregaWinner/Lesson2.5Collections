@@ -1,5 +1,6 @@
 package pro.sky.service;
 
+import jakarta.annotation.PostConstruct;
 import org.springframework.stereotype.Service;
 import pro.sky.exception.EmployeeAlreadyAddedException;
 import pro.sky.exception.EmployeeNotFoundException;
@@ -11,14 +12,22 @@ import java.util.*;
 @Service
 public class EmployeeService {
     private final int MAX_EMPLOYEES = 10;
-    private final Map<String, Employee> employees;
+    private Map<String, Employee> employees = new HashMap<>();
 
     public EmployeeService(Map<String, Employee> employees) {
         this.employees = employees;
 
     }
-
-
+    @PostConstruct
+    private void init (){
+        addEmployee("Вин", "Дизель");
+        addEmployee("Пол", "Уокер");
+        addEmployee("Джордана", "Брюстер");
+        addEmployee("Дуэйн", "Джонсон");
+        addEmployee("Тайриз", "Гибсон");
+        addEmployee("Сон", "Ган");
+        addEmployee("Галь", "Гадот");
+    }
 
         public Employee addEmployee(String firstName, String lastName) throws EmployeeAlreadyAddedException,
             EmployeeStorageIsFullException {
@@ -54,6 +63,13 @@ public class EmployeeService {
     public Collection<Employee> printAllEmployee() {
         return Collections.unmodifiableCollection(employees.values());
     }
+
+
+
+
+
+
+
 
 
 }
