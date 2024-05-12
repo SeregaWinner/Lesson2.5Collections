@@ -18,8 +18,9 @@ public class EmployeeService {
         this.employees = employees;
 
     }
+
     @PostConstruct
-    private void init (){
+    private void init() {
         addEmployee("Вин", "Дизель");
         addEmployee("Пол", "Уокер");
         addEmployee("Джордана", "Брюстер");
@@ -29,7 +30,7 @@ public class EmployeeService {
         addEmployee("Галь", "Гадот");
     }
 
-        public Employee addEmployee(String firstName, String lastName) throws EmployeeAlreadyAddedException,
+    public Employee addEmployee(String firstName, String lastName) throws EmployeeAlreadyAddedException,
             EmployeeStorageIsFullException {
         Employee employee = new Employee(firstName, lastName);
         if (employees.size() == MAX_EMPLOYEES) {
@@ -63,13 +64,6 @@ public class EmployeeService {
     public Collection<Employee> printAllEmployee() {
         return Collections.unmodifiableCollection(employees.values());
     }
-
-
-
-
-
-
-
 
 
 }

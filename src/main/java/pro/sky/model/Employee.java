@@ -14,7 +14,7 @@ public class Employee {
         Random random = new Random();
         this.firstName = firstName;
         this.lastName = lastName;
-        this.salary = random.nextInt(100000)+ 10000;
+        this.salary = random.nextInt(100000) + 10000;
         this.department = random.nextInt(5) + 1;
     }
 
