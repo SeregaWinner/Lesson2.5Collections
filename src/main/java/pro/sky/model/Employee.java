@@ -1,7 +1,13 @@
 package pro.sky.model;
 
+import io.micrometer.common.util.StringUtils;
+
+import java.util.Locale;
 import java.util.Objects;
 import java.util.Random;
+
+import static org.apache.tomcat.util.IntrospectionUtils.capitalize;
+
 
 public class Employee {
     private String firstName;
@@ -12,8 +18,8 @@ public class Employee {
 
     public Employee(String firstName, String lastName) {
         Random random = new Random();
-        this.firstName = firstName;
-        this.lastName = lastName;
+        this.firstName = capitalize(firstName.toLowerCase());
+        this.lastName = capitalize(lastName.toLowerCase());
         this.salary = random.nextInt(100000) + 10000;
         this.department = random.nextInt(5) + 1;
     }
