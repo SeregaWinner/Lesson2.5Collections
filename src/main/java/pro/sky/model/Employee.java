@@ -1,16 +1,21 @@
 package pro.sky.model;
 
 import java.util.Objects;
+import java.util.Random;
 
 public class Employee {
     private String firstName;
     private String lastName;
+    private int department;
+    private int salary;
 
 
     public Employee(String firstName, String lastName) {
+        Random random = new Random();
         this.firstName = firstName;
         this.lastName = lastName;
-
+        this.salary = random.nextInt(100000) + 10000;
+        this.department = random.nextInt(5) + 1;
     }
 
     public Employee() {
@@ -28,12 +33,28 @@ public class Employee {
         return lastName;
     }
 
+    public int getDepartment() {
+        return department;
+    }
+
+    public double getSalary() {
+        return salary;
+    }
+
     public void setFirstName(String firstName) {
         this.firstName = firstName;
     }
 
     public void setLastName(String lastName) {
         this.lastName = lastName;
+    }
+
+    public void setDepartment(int department) {
+        this.department = department;
+    }
+
+    public void setSalary(int salary) {
+        this.salary = salary;
     }
 
     @Override
