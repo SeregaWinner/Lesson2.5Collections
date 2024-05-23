@@ -5,9 +5,12 @@ import org.springframework.stereotype.Service;
 import pro.sky.exception.EmployeeAlreadyAddedException;
 import pro.sky.exception.EmployeeNotFoundException;
 import pro.sky.exception.EmployeeStorageIsFullException;
+import pro.sky.exception.InvalidInputException;
 import pro.sky.model.Employee;
 
 import java.util.*;
+
+import static org.apache.commons.lang3.StringUtils.*;
 
 @Service
 public class EmployeeService {
@@ -33,6 +36,7 @@ public class EmployeeService {
     public Employee addEmployee(String firstName, String lastName) throws EmployeeAlreadyAddedException,
             EmployeeStorageIsFullException {
         Employee employee = new Employee(firstName, lastName);
+        validateInput(firstName, lastName);
         if (employees.size() == MAX_EMPLOYEES) {
             throw new EmployeeStorageIsFullException();
         }
@@ -45,6 +49,7 @@ public class EmployeeService {
 
     public Employee removeEmployee(String firstName, String lastName) throws EmployeeNotFoundException {
         Employee employee = new Employee(firstName, lastName);
+        validateInput(firstName, lastName);
         if (!employees.containsKey(employee.combineFullName())) {
             throw new EmployeeNotFoundException();
         }
@@ -55,6 +60,7 @@ public class EmployeeService {
 
     public Employee findEmployee(String firstName, String lastName) throws EmployeeNotFoundException {
         Employee employee = new Employee(firstName, lastName);
+        validateInput(firstName, lastName);
         if (!employees.containsKey(employee.combineFullName())) {
             throw new EmployeeNotFoundException();
         }
@@ -63,6 +69,12 @@ public class EmployeeService {
 
     public Collection<Employee> printAllEmployee() {
         return Collections.unmodifiableCollection(employees.values());
+    }
+
+    private void validateInput(String firstName, String lastName) {
+        if (!(isAlpha(firstName) && isAlpha(lastName))) {
+            throw new InvalidInputException();
+        }
     }
 
 
